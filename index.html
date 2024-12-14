@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nothing is Here</title>
+  <style>
+    :root {
+      --bg-color-light: #f4f4f4;
+      --text-color-light: #000;
+      --bg-color-dark: #1e1e1e;
+      --text-color-dark: #00ff00;
+    }
+
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: var(--bg-color-light);
+      color: var(--text-color-light);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 500px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: var(--bg-color-light);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group button {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    #mic-button {
+      font-size: 18px;
+      padding: 0 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group button:focus {
+      outline: none;
+      border-color: var(--text-color-dark);
+    }
+
+    #toggle-dark-mode {
+      text-align: center;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .dark-mode {
+      background-color: var(--bg-color-dark);
+      color: var(--text-color-dark);
+    }
+
+    .dark-mode input,
+    .dark-mode select,
+    .dark-mode button {
+      border-color: var(--text-color-dark);
+      background-color: #333;
+      color: var(--text-color-dark);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Nothing is Here</h1>
+    </div>
+
+    <div class="form-group">
+      <label for="search-input">Search Query:</label>
+      <input type="text" id="search-input" placeholder="Type your query..." />
+    </div>
+
+    <div class="form-group">
+      <label for="file-type">Choose File Type:</label>
+      <select id="file-type">
+        <option value="all">All</option>
+        <option value="audio">Audio (mp3, wav, flac, etc.)</option>
+        <option value="video">Video (mp4, mkv, avi, etc.)</option>
+        <option value="image">Images (jpg, png, gif, etc.)</option>
+        <option value="document">Documents (pdf, doc, txt, etc.)</option>
+        <option value="archive">Archives (zip, rar, 7z, etc.)</option>
+        <option value="software">Software (exe, apk, iso, etc.)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <button id="search-button">Search</button>
+    </div>
+
+    <div id="toggle-dark-mode">🌙 Toggle Dark Mode</div>
+
+    <div class="footer">
+      <p>Powered by <strong>Arpit Yadav</strong></p>
+    </div>
+  </div>
+
+  <script>
+    const fileExtensions = {
+      audio: "mp3|wav|flac|aac|ogg",
+      video: "mp4|mkv|avi|mov",
+      image: "png|jpg|jpeg|gif|tiff",
+      document: "pdf|doc|docx|xls|xlsx|ppt|pptx",
+      archive: "zip|rar|tar|7z|gz",
+      software: "exe|apk|iso|dll|msi",
+    };
+
+    // Search functionality
+    document.getElementById("search-button").addEventListener("click", () => {
+      const query = document.getElementById("search-input").value.trim();
+      const fileType = document.getElementById("file-type").value;
+
+      if (!query) {
+        alert("Please enter a search query!");
+        return;
+      }
+
+      let extensions = "";
+      if (fileType !== "all") {
+        extensions = `(${fileExtensions[fileType]})`;
+      }
+
+      const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(
+        query
+      )} -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml|asp|cgi|cfm|py|do|action|ini|conf|xml) intitle:index.of ${extensions}`;
+      window.open(googleUrl, "_blank");
+    });
+
+    // Dark mode toggle
+    document.getElementById("toggle-dark-mode").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+  </script>
+</body>
+</html>
